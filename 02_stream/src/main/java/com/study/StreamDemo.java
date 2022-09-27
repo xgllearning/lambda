@@ -42,7 +42,24 @@ public class StreamDemo {
         test05_1();//对集合中所有作家的年龄+10并打印
         System.out.println("=======================");
         test07();//对流中的元素按照年龄降序排序，且不能要求有重复元素
-        test08();
+        test08();//对流中的元素按照年龄进行降序排序，并且要求不能有重复的元素,然后打印其中年龄最大的两个作家的姓名。
+        System.out.println("========================");
+        test09();//打印除了年龄最大的作家外的其他作家，要求不能有重复元素，并且按照年龄降序排序。
+    }
+
+    private static void test09() {
+        //打印除了年龄最大的作家外的其他作家，要求不能有重复元素，并且按照年龄降序排序。
+        List<Author> authors = getAuthors();
+        authors.stream()
+                .distinct()
+                .sorted(new Comparator<Author>() {
+                    @Override
+                    public int compare(Author o1, Author o2) {
+                        return o2.getAge()- o1.getAge();
+                    }
+                })
+                .skip(1)
+                .forEach(author -> System.out.println(author.getName()));
     }
 
     private static void test08() {
