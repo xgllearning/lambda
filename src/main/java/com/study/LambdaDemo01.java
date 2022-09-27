@@ -13,7 +13,7 @@ public class LambdaDemo01 {
         new Thread(() -> {
             System.out.println("这是一个lambda表达式");
         });
-
+        //练习1
         int i = calculateNum((left, right) -> left + right);
         System.out.println(i);
         System.out.println("================");
@@ -36,6 +36,7 @@ public class LambdaDemo01 {
         String s =typeConver(s1 -> s1 +"study");
         System.out.println(s);
         System.out.println("===================");
+        //练习4
         foreachArr(value -> System.out.println(value));
     }
     //练习4
