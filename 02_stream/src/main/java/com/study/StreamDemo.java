@@ -1,11 +1,11 @@
 package com.study;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class StreamDemo {
     public static void main(String[] args) {
@@ -21,7 +21,29 @@ public class StreamDemo {
                     return author.getAge() < 18;
                 })//过略年龄<18的
                 .forEach(author -> System.out.println(author.getName()));
+
+        test02();
+        System.out.println("=========================");
+        //去重收集
+        ArrayList<Author> collect = authors.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(()
+                -> new TreeSet<>(Comparator.comparing(Author::getName))), ArrayList::new));
+        System.out.println(collect);
+        System.out.println("===========================");
+        //比较器去重
+        TreeSet<Author> set = new TreeSet<>(Comparator.comparing(a -> (a.getName() + a.getAge())));
+        set.addAll(authors);
+        ArrayList<Author> list = new ArrayList<>(set);
+        System.out.println(list);
     }
+
+    private static void test02() {
+        //数组stream流
+        Integer[] arr = {1,2,3,4,5};
+        //Stream<Integer> stream = Arrays.stream(arr);
+        Stream<Integer> stream = Stream.of(arr);
+        stream.distinct().filter(integer -> integer>=3).forEach(integer -> System.out.println(integer));
+    }
+
     private static List<Author> getAuthors() {
         //数据初始化
         Author author = new Author(1L,"蒙多",33,"一个从菜刀中明悟哲理的祖安人",null);
