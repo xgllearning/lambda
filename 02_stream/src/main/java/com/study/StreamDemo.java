@@ -3,6 +3,7 @@ package com.study;
 
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -36,6 +37,29 @@ public class StreamDemo {
         System.out.println(list);
         System.out.println("=================");
         test03();
+        System.out.println("=================");
+        test05();//打印集合中所有作家的姓名
+        test05_1();//对集合中所有作家的年龄+10并打印
+    }
+    //map计算操作
+    private static void test05_1() {
+        List<Author> authors = getAuthors();
+        List<Integer> list = authors.stream()
+                .map(Author::getAge).map(age -> age + 10).collect(Collectors.toList());
+        System.out.println(list);
+    }
+
+    //map操作
+    private static void test05() {
+        List<Author> authors = getAuthors();
+        List<String> collect = authors.stream().distinct()
+                .map(new Function<Author, String>() {
+                    @Override
+                    public String apply(Author author) {
+                        return author.getName();
+                    }
+                }).collect(Collectors.toList());
+        System.out.println(collect);
     }
 
     private static void test03() {
