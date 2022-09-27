@@ -34,6 +34,19 @@ public class StreamDemo {
         set.addAll(authors);
         ArrayList<Author> list = new ArrayList<>(set);
         System.out.println(list);
+        System.out.println("=================");
+        test03();
+    }
+
+    private static void test03() {
+        Map<String,Integer> map = new HashMap<>();
+        map.put("蜡笔小新",19);
+        map.put("黑子",17);
+        map.put("日向翔阳",16);
+        //map.entrySet(),就是把键和值封装为一个Entry对象
+        Stream<Map.Entry<String, Integer>> stream = map.entrySet().stream();
+        stream.filter(entry -> entry.getValue()>=17)
+                .forEach(entry -> System.out.println(entry));
     }
 
     private static void test02() {
